@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 public class EasterEggController {
     private static final String NUMBERS_API_URL = "http://numbersapi.com/";
 
+
     @GetMapping("/{number}")
     public ResponseEntity<String> getNumberFact(@PathVariable int number) {
         RestTemplate restTemplate = new RestTemplate();

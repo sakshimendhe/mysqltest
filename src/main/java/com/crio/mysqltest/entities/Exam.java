@@ -14,15 +14,15 @@ import java.util.List;
 public class Exam {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;  // Primary key (auto-generated)
+    private Long id; 
 
-    @Column(unique = true, nullable = false)  // Unique identifier for the exam
+    @Column(unique = true, nullable = false) 
     private String examId;
 
     @ManyToOne
-    @JoinColumn(name = "subject_id")  // Foreign Key to Subject
+    @JoinColumn(name = "subject_id")  
     private Subject subject;
 
-    @ManyToMany(mappedBy = "registeredExams")  // "registeredExams" is the name of the field in Student class
+    @ManyToMany(mappedBy = "registeredExams")
     private List<Student> enrolledStudents = new ArrayList<>();
 }

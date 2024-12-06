@@ -7,6 +7,10 @@ import lombok.AllArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -14,13 +18,14 @@ import java.util.List;
 public class Subject {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;  // Primary key (auto-generated)
+    private Long id; 
 
     @Column(unique = true, nullable = false)
-    private String subjectId;  // Unique subject ID (non-primary key)
+    private String subjectId;
 
     private String name;
 
-    @ManyToMany(mappedBy = "enrolledSubjects")  // "enrolledSubjects" is the name of the field in Student class
+    @JsonIgnore
+    @ManyToMany(mappedBy = "enrolledSubjects")  
     private List<Student> enrolledStudents = new ArrayList<>();
 }

@@ -7,6 +7,10 @@ import lombok.AllArgsConstructor;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 @Entity
 @Data
 @NoArgsConstructor
@@ -14,26 +18,27 @@ import java.util.List;
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;  // Primary key (auto-generated)
+    private Long id;
 
     @Column(unique = true, nullable = false)
-    private String registrationId;  // Unique registration ID (non-primary key)
+    private String registrationId;
 
     private String name;
 
+    @JsonIgnore
     @ManyToMany
     @JoinTable(
-        name = "student_subject",  // Join table for Student-Subject many-to-many
-        joinColumns = @JoinColumn(name = "student_id"),  // Foreign Key to Student
-        inverseJoinColumns = @JoinColumn(name = "subject_id")  // Foreign Key to Subject
+        name = "student_subject",  
+        joinColumns = @JoinColumn(name = "student_id"), 
+        inverseJoinColumns = @JoinColumn(name = "subject_id")  
     )
     private List<Subject> enrolledSubjects = new ArrayList<>();
 
     @ManyToMany
     @JoinTable(
-        name = "student_exam",  // Join table for Student-Exam many-to-many
-        joinColumns = @JoinColumn(name = "student_id"),  // Foreign Key to Student
-        inverseJoinColumns = @JoinColumn(name = "exam_id")  // Foreign Key to Exam
+        name = "student_exam", 
+        joinColumns = @JoinColumn(name = "student_id"),  
+        inverseJoinColumns = @JoinColumn(name = "exam_id")  
     )
     private List<Exam> registeredExams = new ArrayList<>();
 }
